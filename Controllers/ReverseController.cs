@@ -2,33 +2,34 @@
 //10-26-2022
 //Reverse It - Endpoint
 //created enpoint that will call a function to reverse a word or number
-//Peer Review by; 
+//Peer Review by; Marcel R - The program worked well, it took a string and used a model for the input through JSON on Postman, and output it reversed. Solid implementation and well written! :D
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using castanedaPReverseItEndpoint.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace castanedaPReverseItEndpoint.Controllers
 {
+    [ApiController]
     [Route("[controller]")]
-    public class ReverseController : Controller
+    public class ReverseController : ControllerBase
     {
-        [HttpGet]
-        [Route("Reverse/{wordNum}")]
+        [HttpGet("Reverse")]
 
-        public string ReverseIt(string wordNum)
+        public string ReverseIt(ReverseModel input)
         {
             string result = "";
             int num = 0;
-            bool checkNum = Int32.TryParse(wordNum, out num);
+            bool checkNum = Int32.TryParse(input.wordNum, out num);
             if(!checkNum)
             {
-                for(int i = wordNum.Length - 1; i >= 0; i--)
+                for(int i = input.wordNum.Length - 1; i >= 0; i--)
                 {
-                   result += wordNum[i];
+                   result += input.wordNum[i];
                 }
                 result = $"{result}";
             }
